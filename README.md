@@ -1,56 +1,62 @@
-# Welcome to your Expo app 👋
+# Cupp ☕
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Specialty-coffee logging app with an AI bag-scan: photograph a coffee bag, the vision model prefills the bean details, you add your brew and score. LaunchPad Challenge entry, submission 31 Jul 2026.
 
-## Get started
+**New teammate? Read [`handover.md`](./handover.md) first** — it has every decision, the AI pipeline design, and what's in/out of scope. This file is just "get it running."
 
-1. Install dependencies
+## Get running in 15 minutes
 
-   ```bash
-   npm install
-   ```
+**Prerequisites**
 
-2. Start the app
+- **Node 22 LTS** (not 23/25 — Expo targets LTS). With nvm: `nvm install 22 && nvm use` (reads `.nvmrc`).
+- **Expo Go** app installed on your physical phone (App Store / Play Store).
+- Phone and laptop on the **same Wi-Fi**.
 
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+**Run it**
 
 ```bash
-npm run reset-project
+npm install
+npx expo start
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Scan the QR code with your phone (iPhone: Camera app; Android: inside Expo Go). The app loads live; code edits appear in seconds.
 
-### Other setup steps
+**QR connects but app never loads?** Your network blocks device-to-laptop traffic (common on uni/office Wi-Fi). Use tunnel mode:
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+```bash
+npx expo start --tunnel
+```
 
-## Learn more
+## Environment variables
 
-To learn more about developing your project with Expo, look at the following resources:
+```bash
+cp .env.example .env          # app config (Supabase URL + anon key)
+```
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+Get the real values from Bryan (private channel, never committed). **The AI/Agnes key is NOT needed to run the app** — it exists only in `scripts/.env` for the Python harness and, later, as a server-side secret.
 
-## Join the community
+## The Python harness (optional — AI pipeline testing)
 
-Join our community of developers creating universal apps.
+```bash
+cd scripts
+cp .env.example .env          # fill in values from Bryan
+python3 -m venv .venv && source .venv/bin/activate
+pip install -r requirements.txt
+python scan_spike.py <public-image-url>
+```
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Repo map
+
+| Path | What |
+|---|---|
+| `src/app/` | App screens (expo-router file-based routing) |
+| `src/components/`, `src/hooks/` | Shared UI + hooks (template-provided) |
+| `supabase/migrations/` | Database/storage SQL — source of truth |
+| `scripts/` | Validated Python AI harness + test bag photos |
+| `handover.md` | Full project context — read it |
+
+## House rules
+
+- `main` always boots. Verify `npx expo start` works before pushing.
+- Never commit `.env` files (gitignore blocks them; don't fight it).
+- Scope questions → group chat, not unilateral building. Cut list lives in `handover.md` §9.

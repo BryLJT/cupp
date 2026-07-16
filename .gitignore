@@ -41,3 +41,22 @@ example
 # generated native folders
 /ios
 /android
+
+# Cupp additions
+# secrets — never commit any .env (examples are allowlisted below)
+.env
+.env.*
+!.env.example
+scripts/.env
+!scripts/.env.example
+
+# python harness
+__pycache__/
+*.pyc
+scripts/.venv/
+
+# harness output + Bryan's private phone photos
+out/*
+!out/.gitkeep
+scripts/fixtures/phone/*
+!scripts/fixtures/phone/.gitkeep
