@@ -416,8 +416,8 @@
   <header>
     <div class="eyebrow">Cupp · Phase B ideation</div>
     <h1>Wireframes, v2 — the social cut</h1>
-    <p class="lede">Direction change from v1: the feed goes social (your logs + people you follow), a search tab opens a discovery page filterable by origin and roaster, and the 0–10 score becomes four 1–5 tasting characteristics plus an overall star rating. Roastery palette unchanged, as agreed. This document doubles as the proposal to un-cut social from handover §9 — see the flag at the bottom.</p>
-    <div class="meta">17 Jul 2026 · supersedes v1 · rating model per SCA cupping attributes + Tasting Grounds' 1–5 pattern</div>
+    <p class="lede">Direction locked 17 Jul with Bryan's sign-off: the feed goes social (For You · Following · Mine), the search tab is a discovery page filterable by origin, roaster, and brew method, ratings are four 1–5 tasting characteristics plus overall stars, and logs are public by default with a per-log Private toggle. Brew templates: saved recipes that prefill the brew section, plus custom method names. Roastery palette unchanged. Decision log at the bottom.</p>
+    <div class="meta">v2.1 · 17 Jul 2026 · supersedes v1 · social sign-off recorded · rating model per SCA cupping attributes</div>
   </header>
 
   <section>
@@ -428,7 +428,7 @@
     <div class="flow">
       <span class="step">Sign in</span>
       <span class="arrow">→</span>
-      <span class="step">Feed (all · following · mine)</span>
+      <span class="step">Feed (for you · following · mine)</span>
       <span class="arrow">→</span>
       <span class="fork">
         <span class="step hot">◉ Scan bag → reading → prefilled form</span>
@@ -481,7 +481,7 @@
               <span class="wordmark">Cupp</span>
               <span style="font-size:12px;">♡</span>
             </div>
-            <div class="ftabs"><span class="on">All</span><span>Following</span><span>Mine</span></div>
+            <div class="ftabs"><span class="on">For You</span><span>Following</span><span>Mine</span></div>
             <div class="card">
               <div class="post-head"><span class="avatar sm"></span><span class="who">bryan.pours</span><span class="when">2h</span></div>
               <div class="img">bag photo</div>
@@ -516,8 +516,8 @@
         </div>
         <div class="screen-cap">
           <div class="num">02 · HOME</div>
-          <div class="name">Feed — all · following · mine</div>
-          <p class="note">Your logs and your friends' public logs, one stream, newest first. The filter tabs replace v1's private-only journal — <b>Mine</b> is the old journal, one tap away. Every post carries attribution now, so likes and comments have somewhere to live.</p>
+          <div class="name">Feed — for you · following · mine</div>
+          <p class="note"><b>For You</b> — the default — is every public log, so the feed is never empty for a new user. <b>Following</b> is your people; <b>Mine</b> is v1's private journal, one tap away. Every post carries attribution, so likes and comments have somewhere to live.</p>
         </div>
       </div>
 
@@ -531,11 +531,11 @@
             <div class="chips"><span class="chip on">All</span><span class="chip">Ethiopia</span><span class="chip">Colombia</span><span class="chip">Kenya</span><span class="chip">Brazil</span><span class="chip">＋</span></div>
             <div class="filter-lbl">Roaster</div>
             <div class="chips"><span class="chip on">All</span><span class="chip">SEY</span><span class="chip">Onyx</span><span class="chip">Tim W.</span><span class="chip">＋</span></div>
+            <div class="filter-lbl">Method</div>
+            <div class="chips"><span class="chip on">All</span><span class="chip">V60</span><span class="chip">Espresso</span><span class="chip">Turkish cezve</span><span class="chip">＋</span></div>
             <div class="grid2">
               <div class="tile"><div class="img card-img"></div><div class="body"><div class="bean">Worka</div><div class="roaster">Onyx · ★★★★★</div></div></div>
               <div class="tile"><div class="img card-img"></div><div class="body"><div class="bean">Huila</div><div class="roaster">SEY · ★★★★☆</div></div></div>
-              <div class="tile"><div class="img card-img"></div><div class="body"><div class="bean">Bombe</div><div class="roaster">Tim W. · ★★★★☆</div></div></div>
-              <div class="tile"><div class="img card-img"></div><div class="body"><div class="bean">La Palma</div><div class="roaster">SEY · ★★★☆☆</div></div></div>
             </div>
             <div class="tabbar">
               <div class="tab"><span class="ic">▤</span>Feed</div>
@@ -549,7 +549,7 @@
         <div class="screen-cap">
           <div class="num">03 · DISCOVERY</div>
           <div class="name">Search — the roast guide</div>
-          <p class="note">Public logs only, browsable like a roast guide: filter chips for origin and roaster stack (both can be active), text search covers beans, roasters, and people. Filter values aren't hardcoded — they're whatever origins/roasters exist in public logs.</p>
+          <p class="note">Public logs only, browsable like a roast guide: three stacking filter rows — origin, roaster, and brew method. Values aren't hardcoded; they're whatever exists in public logs, so a custom method like “Turkish cezve” shows up as a chip automatically. Text search covers beans, roasters, and people.</p>
         </div>
       </div>
 
@@ -608,9 +608,9 @@
               <div class="form-sec">Bean — read from the bag</div>
               <div class="f-row"><div><span class="k">Roaster</span><span class="v">SEY</span></div><span class="chip read">read ✓</span></div>
               <div class="f-row"><div><span class="k">Coffee · Origin</span><span class="v">Huila — Colombia</span></div><span class="chip read">read ✓</span></div>
-              <div class="f-row"><div><span class="k">Variety</span><span class="v empty">not on the label — add it?</span></div></div>
               <div class="form-sec">Your brew</div>
-              <div class="seg"><span class="on">V60</span><span>Espresso</span><span>Aero</span><span>More</span></div>
+              <div class="chips"><span class="chip on">★ My morning V60</span><span class="chip">save this setup ＋</span></div>
+              <div class="seg"><span class="on">V60</span><span>Espresso</span><span>Aero</span><span>＋ Custom</span></div>
               <div class="form-sec">Your verdict — 1 to 5</div>
               <div class="dots-row"><span class="lbl">Strength</span><span class="dots">●●●<span class="off">●●</span></span></div>
               <div class="dots-row"><span class="lbl">Acidity</span><span class="dots">●●●●<span class="off">●</span></span></div>
@@ -626,7 +626,7 @@
         <div class="screen-cap">
           <div class="num">06 · THE MONEY SCREEN</div>
           <div class="name">Review &amp; save</div>
-          <p class="note">Rating rebuilt: four cupping characteristics (strength/body, acidity, sweetness, bitterness) on 1–5 dots, plus an overall 1–5 stars — the stars are what cards show. New <b>public/private</b> toggle decides whether it enters the feed and discovery; the button label follows the choice (“Share to feed” / “Save privately”).</p>
+          <p class="note">Rating: four cupping characteristics on 1–5 dots plus overall stars — the stars are what cards show. <b>Templates</b>: tapping “★ My morning V60” prefills the whole brew section; any setup can be saved as a new template, and “＋ Custom” adds your own method name (which then appears in discovery filters). Visibility defaults to <b>Public</b>; the button label follows the choice (“Share to feed” / “Save privately”). Unread bean fields still arrive honestly blank.</p>
         </div>
       </div>
 
@@ -721,33 +721,35 @@
 
   <section>
     <div class="sec-head">
-      <h2>What social costs — and the questions</h2>
+      <h2>Cost, build order, and the decision log</h2>
     </div>
     <div class="flag">
-      <h3>⚠ This proposal un-cuts §9 — it needs Bryan's sign-off and a build order</h3>
-      <p>The 16 Jul cut list excluded all social features; this document is the artifact for reversing that in the group chat (per §13). Going social is not one feature — it's a schema change plus four:</p>
+      <h3>✓ Social is un-cut — signed off 17 Jul (§13 satisfied)</h3>
+      <p>The 16 Jul cut list excluded all social features; the team reversed that on 17 Jul with Bryan's agreement. This page is the record. Going social is not one feature — it's a schema change plus four:</p>
       <table>
         <tr><th>Piece</th><th>What it needs</th></tr>
         <tr><td><b>Public/private logs</b></td><td><code>visibility</code> column + RLS policy allowing public reads. Foundation for everything below.</td></tr>
         <tr><td><b>Follows</b></td><td><code>follows</code> table, follow/unfollow UI, “Following” feed query.</td></tr>
         <tr><td><b>Likes</b></td><td><code>likes</code> table, toggle + counts. Cheap once visibility exists.</td></tr>
-        <tr><td><b>Comments</b></td><td><code>comments</code> table, thread UI, input handling. The most work, and the demo needs it least.</td></tr>
+        <tr><td><b>Comments</b></td><td><code>comments</code> table, thread UI, input handling. The most work — and committed for launch, per the 17 Jul decision.</td></tr>
+        <tr><td><b>Brew templates</b></td><td><code>brew_templates</code> table (name + method + dose/ratio/grind/temp per user); custom method names ride along free.</td></tr>
         <tr><td><b>Discovery</b></td><td>Search + filter queries over public logs. No new tables.</td></tr>
       </table>
-      <p><b>Suggested order, protecting the 25 Jul happy-path deadline:</b> scan flow stays lane one and untouchable. Social lane builds visibility → discovery → follows → likes, in that order, and comments only if time remains. Every step of that order demos fine if the next one doesn't land.</p>
+      <p><b>Build order, protecting the 25 Jul happy-path deadline:</b> scan flow stays lane one and untouchable. Social lane builds visibility → discovery → follows → likes → comments → templates. Comments are committed, not optional — which makes the social lane a full-person job; if it slips, flag it in the group chat early rather than quietly cutting.</p>
     </div>
     <ol class="qlist">
-      <li><b>Has Bryan agreed?</b><span>If yes, ignore this. If not — this page is the proposal; the cost table above is the honest price tag, eight working days out.</span></li>
-      <li><b>Default visibility for a new log: public or private?</b><span>Public-by-default fills the feed and demo; private-by-default is the safer instinct for personal tasting notes. The toggle exists either way — this is only about the default.</span></li>
-      <li><b>Follows: one-way (IG-style) or mutual friends?</b><span>One-way is simpler — no request/accept flow — and matches the “followings” language you used. Assume one-way unless you say otherwise.</span></li>
-      <li><b>Comments at launch, or likes-first?</b><span>The wireframe shows comments; the build order treats them as the droppable tail. Fine, or must comments make the demo?</span></li>
-      <li><b>Characteristics: Strength · Acidity · Sweetness · Bitterness + Overall — right set?</b><span>Grounded in SCA cupping attributes; Aroma and Aftertaste are the usual next two, but six rows starts feeling like homework on a phone form.</span></li>
-      <li><b>Discovery filters: origin + roaster confirmed — also brew method?</b><span>“Show me V60 logs of Ethiopian coffee” is a nice demo line and cheap to add as a third chip row.</span></li>
-      <li><b>Feed default tab: All, or Following?</b><span>All self-heals when a new user follows nobody (cold-start problem); IG defaults to Following. Wireframe assumes All.</span></li>
+      <li><b>Social un-cut — Bryan signed off.</b><span>Feed, follows, likes, comments all in; §9 superseded for these, §13 satisfied.</span></li>
+      <li><b>New logs default to Public.</b><span>The Private toggle stays on every log form.</span></li>
+      <li><b>Follows are one-way, IG-style.</b><span>No request/accept flow.</span></li>
+      <li><b>Likes and comments both ship at launch.</b></li>
+      <li><b>Characteristics locked: Strength · Acidity · Sweetness · Bitterness + Overall stars.</b></li>
+      <li><b>Discovery filters: origin, roaster, brew method.</b><span>Custom methods surface as filter chips automatically.</span></li>
+      <li><b>Home hosts For You | Following | Mine; Search stays pure discovery.</b><span>For You = all public logs, so a new user's feed is never empty.</span></li>
+      <li><b>Brew templates: saved recipes + custom method names.</b><span>A template prefills the brew section. The full custom form-field builder stays cut per §9.</span></li>
     </ol>
   </section>
 
   <footer>
-    Next: answers above → theme file (<code>constants/theme.ts</code>), tab layout (<code>app/(tabs)/</code>), and the schema draft including social tables. Screens 04–06 remain the demo spine and get built first regardless of what social decides.
+    Decisions locked — next: theme file (<code>constants/theme.ts</code>), tab layout (<code>app/(tabs)/</code>), and the schema draft including social + template tables. Screens 04–06 remain the demo spine and get built first.
   </footer>
 </div>
