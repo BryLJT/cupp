@@ -31,5 +31,20 @@ export type { FieldRowProps } from './field-row';
 export { Segmented } from './segmented';
 export type { SegmentedOption, SegmentedProps, SegmentedVariant } from './segmented';
 
+export { Avatar } from './avatar';
+export type { AvatarProps } from './avatar';
+
+export { Photo } from './photo';
+export type { PhotoProps } from './photo';
+
+export { EmptyState } from './empty-state';
+export type { EmptyStateProps } from './empty-state';
+
+export { LogCard, beanTitle, originLine } from './log-card';
+export type { LogCardProps } from './log-card';
+
+export { ProfileView } from './profile-view';
+export type { ProfileViewProps } from './profile-view';
+
 // Theme tokens, re-exported for convenience.
 export { colors, fonts, radii, space } from '@/constants/theme';
