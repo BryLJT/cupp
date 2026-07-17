@@ -49,8 +49,8 @@ python scan_spike.py <public-image-url>
 
 | Path | What |
 |---|---|
-| `src/app/` | App screens (expo-router file-based routing) |
-| `src/components/`, `src/hooks/` | Shared UI + hooks (template-provided) |
+| `app/` | App screens (expo-router file-based routing) |
+| `components/`, `hooks/`, `constants/` | Shared UI + hooks (template-provided) |
 | `supabase/migrations/` | Database/storage SQL — source of truth |
 | `scripts/` | Validated Python AI harness + test bag photos |
 | `handover.md` | Full project context — read it |
@@ -58,5 +58,6 @@ python scan_spike.py <public-image-url>
 ## House rules
 
 - `main` always boots. Verify `npx expo start` works before pushing.
+- **Stay on Expo SDK 54 — do not run `expo upgrade`.** The App Store version of Expo Go only supports SDK 54 (newer versions are stuck in Apple review); upgrading bricks everyone's phone testing. See `handover.md` §12.
 - Never commit `.env` files (gitignore blocks them; don't fight it).
 - Scope questions → group chat, not unilateral building. Cut list lives in `handover.md` §9.

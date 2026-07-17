@@ -123,7 +123,8 @@ cupp/
 ├─ README.md              ← 15-minute setup: clone → app on your phone
 ├─ .nvmrc                 ← Node 22 LTS (use it — see Gotchas)
 ├─ .env.example           ← app env template (Supabase URL + anon key)
-├─ src/                   ← the Expo app (expo-router: src/app/ = screens)
+├─ app/                   ← the Expo app screens (expo-router file-based routing)
+├─ components/ hooks/ constants/ assets/   ← template-provided UI pieces
 ├─ app.json               ← Expo config
 ├─ supabase/
 │  ├─ migrations/         ← SQL source of truth (apply via dashboard SQL editor)
@@ -151,13 +152,14 @@ Real values are shared person-to-person (Bryan pastes them into the group's priv
 
 ## 12. Known gotchas (each of these has already burned time — read once, save hours)
 
-1. **Node version:** Expo targets Node LTS. `.nvmrc` says 22. Node 25 may work but is unsupported; if Metro throws engine errors, switch to 22 rather than debugging.
-2. **Expo Go needs phone + laptop on the same Wi-Fi.** If the QR connects but the app never loads (uni Wi-Fi client isolation, VPNs): `npx expo start --tunnel`.
-3. **iPhone photos are HEIC**, not JPEG. Agnes can't read HEIC. Any upload path must convert first (harness uses macOS `sips`; the app will capture/export JPEG).
-4. **Supabase signed-URL response is a RELATIVE path** (`{"signedURL": "/object/sign/..."}`) — prefix it with `{SUPABASE_URL}/storage/v1` or Agnes gets an unfetchable URL and the error looks like an Agnes bug. Cheap insurance: GET the final URL and require 200 before spending a model call.
-5. **Agnes free tier ≈ 20 requests/min.** Throttle batch runs (3–4s sleep between calls); handle 429 with backoff.
-6. **Supabase free projects pause after ~1 week idle.** If everything 500s one morning, un-pause the project in the dashboard first.
-7. **service_role key discipline:** before any commit that touches env handling, `git status` and confirm no `.env` staged.
+1. **We are PINNED to Expo SDK 54 — never run `expo upgrade`.** The App Store version of Expo Go supports only SDK 54; SDK 55–57 builds of Expo Go have been stuck in Apple review for months (per Expo's changelog). We scaffolded on SDK 57 first and Bryan's phone refused it with a misleading "download the latest version" message — that's how this rule was earned. Escape hatches (`eas go`, dev builds) need a paid Apple Developer account; not hackathon material.
+2. **Node version:** Expo targets Node LTS. `.nvmrc` says 22. Node 25 may work but is unsupported; if Metro throws engine errors, switch to 22 rather than debugging.
+3. **Expo Go needs phone + laptop on the same Wi-Fi.** If the QR connects but the app never loads (uni Wi-Fi client isolation, VPNs): `npx expo start --tunnel`.
+4. **iPhone photos are HEIC**, not JPEG. Agnes can't read HEIC. Any upload path must convert first (harness uses macOS `sips`; the app will capture/export JPEG).
+5. **Supabase signed-URL response is a RELATIVE path** (`{"signedURL": "/object/sign/..."}`) — prefix it with `{SUPABASE_URL}/storage/v1` or Agnes gets an unfetchable URL and the error looks like an Agnes bug. Cheap insurance: GET the final URL and require 200 before spending a model call.
+6. **Agnes free tier ≈ 20 requests/min.** Throttle batch runs (3–4s sleep between calls); handle 429 with backoff.
+7. **Supabase free projects pause after ~1 week idle.** If everything 500s one morning, un-pause the project in the dashboard first.
+8. **service_role key discipline:** before any commit that touches env handling, `git status` and confirm no `.env` staged.
 
 ## 13. Working agreements
 
@@ -170,7 +172,7 @@ Real values are shared person-to-person (Bryan pastes them into the group's priv
 ## 14. Current status ledger
 
 - ✅ 2026-07-14 — Agnes validated on real bags (grounding held, JSON honored)
-- ✅ 2026-07-16 — Repo scaffolded (Expo SDK 57, TypeScript, expo-router), spike rescued into `scripts/`, this document written
+- ✅ 2026-07-16 — Repo scaffolded (Expo SDK 54, TypeScript, expo-router — SDK 54 pinned to match App Store Expo Go, see §12.1), spike rescued into `scripts/`, this document written
 - ⬜ Block 2 — hosted Supabase project + private `bag-scans` bucket **[updated after Block 2: project ref goes here]**
 - ⬜ Block 3 — `upload_and_scan.py` + Bryan's real phone photos through the full pipeline **[results summary goes here]**
 - ⬜ Block 4 — latency/resize matrix **[client resize spec goes here]**
