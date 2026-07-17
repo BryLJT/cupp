@@ -173,7 +173,7 @@ Real values are shared person-to-person (Bryan pastes them into the group's priv
 
 - ✅ 2026-07-14 — Agnes validated on real bags (grounding held, JSON honored)
 - ✅ 2026-07-16 — Repo scaffolded (Expo SDK 54, TypeScript, expo-router — SDK 54 pinned to match App Store Expo Go, see §12.1), spike rescued into `scripts/`, this document written
-- ⬜ Block 2 — hosted Supabase project + private `bag-scans` bucket **[updated after Block 2: project ref goes here]**
+- ✅ 2026-07-17 — Block 2: hosted Supabase project live (ref `fmtcobzgghhiexcrucqb`, Singapore region, free tier) + private `bag-scans` bucket (recorded in `supabase/migrations/0001_init_storage.sql`) + `lib/supabase.ts` client stub. **Note: project uses NEW-style API keys (`sb_publishable_...` / `sb_secret_...`); legacy JWT keys are DISABLED** — the env vars keep the conventional names (ANON/SERVICE_ROLE) but hold new-format keys.
 - ⬜ Block 3 — `upload_and_scan.py` + Bryan's real phone photos through the full pipeline **[results summary goes here]**
 - ⬜ Block 4 — latency/resize matrix **[client resize spec goes here]**
 - ⬜ 21 Jul — team kickoff: environment setup all three machines, lane split
