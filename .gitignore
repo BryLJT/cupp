@@ -60,3 +60,6 @@ out/*
 !out/.gitkeep
 scripts/fixtures/phone/*
 !scripts/fixtures/phone/.gitkeep
+
+# build artifacts
+dist-web/

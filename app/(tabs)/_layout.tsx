@@ -1,35 +1,27 @@
-import { Tabs } from 'expo-router';
-import React from 'react';
+import { Redirect, Tabs } from 'expo-router';
+import { View } from 'react-native';
 
-import { HapticTab } from '@/components/haptic-tab';
-import { IconSymbol } from '@/components/ui/icon-symbol';
-import { Colors } from '@/constants/theme';
-import { useColorScheme } from '@/hooks/use-color-scheme';
+import { CuppTabBar } from '@/components/tab-bar';
+import { colors } from '@/constants/theme';
+import { useSession } from '@/hooks/use-session';
 
 export default function TabLayout() {
-  const colorScheme = useColorScheme();
+  const { session, loading } = useSession();
+
+  if (loading) return <View style={{ flex: 1, backgroundColor: colors.ground }} />;
+
+  // Not signed in → gate to auth.
+  if (!session) return <Redirect href="/(auth)/sign-in" />;
 
   return (
     <Tabs
-      screenOptions={{
-        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
-        headerShown: false,
-        tabBarButton: HapticTab,
-      }}>
-      <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Home',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
-        }}
-      />
-      <Tabs.Screen
-        name="explore"
-        options={{
-          title: 'Explore',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
-        }}
-      />
+      screenOptions={{ headerShown: false, sceneStyle: { backgroundColor: colors.ground } }}
+      tabBar={(props) => <CuppTabBar {...props} />}
+    >
+      <Tabs.Screen name="index" options={{ title: 'Feed' }} />
+      <Tabs.Screen name="search" options={{ title: 'Search' }} />
+      <Tabs.Screen name="create" options={{ title: 'Create' }} />
+      <Tabs.Screen name="profile" options={{ title: 'You' }} />
     </Tabs>
   );
 }

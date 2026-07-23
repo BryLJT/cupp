@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "cupp",
-    "userInterfaceStyle": "automatic",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true
@@ -33,10 +33,14 @@
           "image": "./assets/images/splash-icon.png",
           "imageWidth": 200,
           "resizeMode": "contain",
-          "backgroundColor": "#ffffff",
-          "dark": {
-            "backgroundColor": "#000000"
-          }
+          "backgroundColor": "#EFE7DA"
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Cupp uses your photo library so you can pick a coffee bag photo to scan.",
+          "cameraPermission": "Cupp uses your camera to photograph coffee bag labels."
         }
       ]
     ],

@@ -1,53 +1,29 @@
-/**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
- */
+export const colors = {
+  ground: '#EFE7DA', // app background
+  surface: '#FBF8F2', // cards, sheets, inputs
+  ink: '#2E2119', // primary text
+  taupe: '#6E6052', // secondary text
+  accent: '#8A5A33', // primary buttons, scan shutter, read chips, rating marks
+  onAccent: '#FBF8F2', // text/icons on accent
+  line: '#D8CCBB', // borders, dividers
+  camera: '#3A3129', // viewfinder backdrop
+} as const;
 
-import { Platform } from 'react-native';
+export const radii = { chip: 999, control: 8, card: 10, sheet: 16 } as const;
 
-const tintColorLight = '#0a7ea4';
-const tintColorDark = '#fff';
+export const space = (n: number) => n * 4; // 4pt grid
 
-export const Colors = {
-  light: {
-    text: '#11181C',
-    background: '#fff',
-    tint: tintColorLight,
-    icon: '#687076',
-    tabIconDefault: '#687076',
-    tabIconSelected: tintColorLight,
-  },
-  dark: {
-    text: '#ECEDEE',
-    background: '#151718',
-    tint: tintColorDark,
-    icon: '#9BA1A6',
-    tabIconDefault: '#9BA1A6',
-    tabIconSelected: tintColorDark,
-  },
-};
-
-export const Fonts = Platform.select({
-  ios: {
-    /** iOS `UIFontDescriptorSystemDesignDefault` */
-    sans: 'system-ui',
-    /** iOS `UIFontDescriptorSystemDesignSerif` */
-    serif: 'ui-serif',
-    /** iOS `UIFontDescriptorSystemDesignRounded` */
-    rounded: 'ui-rounded',
-    /** iOS `UIFontDescriptorSystemDesignMonospaced` */
-    mono: 'ui-monospace',
-  },
-  default: {
-    sans: 'normal',
-    serif: 'serif',
-    rounded: 'normal',
-    mono: 'monospace',
-  },
-  web: {
-    sans: "system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-    serif: "Georgia, 'Times New Roman', serif",
-    rounded: "'SF Pro Rounded', 'Hiragino Maru Gothic ProN', Meiryo, 'MS PGothic', sans-serif",
-    mono: "SFMono-Regular, Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace",
-  },
-});
+// Font family names — these are the exact loaded family strings from
+// @expo-google-fonts/fraunces and @expo-google-fonts/inter. The root layout
+// (another work package) calls useFonts to load them; if not yet loaded, text
+// falls back to the system font (that must not crash). Use Fraunces (serif) for
+// the wordmark, bean names, and big numbers; Inter (sans) for everything else.
+export const fonts = {
+  serifRegular: 'Fraunces_400Regular',
+  serifSemiBold: 'Fraunces_600SemiBold',
+  serifBold: 'Fraunces_700Bold',
+  sansRegular: 'Inter_400Regular',
+  sansMedium: 'Inter_500Medium',
+  sansSemiBold: 'Inter_600SemiBold',
+  sansBold: 'Inter_700Bold',
+} as const;
