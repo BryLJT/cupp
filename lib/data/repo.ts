@@ -23,7 +23,8 @@ export interface Repo {
   getSession(): Promise<Session | null>;
   /** Subscribe to auth changes. Returns an unsubscribe fn. */
   onAuthChange(cb: (session: Session | null) => void): () => void;
-  signIn(email: string, password: string): Promise<Session>;
+  /** identifier: email or username. */
+  signIn(identifier: string, password: string): Promise<Session>;
   signUp(input: SignUpInput): Promise<Session>;
   signOut(): Promise<void>;
 

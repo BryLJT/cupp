@@ -3,6 +3,7 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 
 import { AppText, Button, Screen, TextField, colors, space } from '@/components';
+import { friendlyAuthError } from '@/lib/auth-errors';
 import { repo } from '@/lib/data';
 
 const USERNAME_RE = /^[a-z0-9_.]{3,24}$/;
@@ -13,18 +14,25 @@ export default function SignUpScreen() {
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
   const [displayName, setDisplayName] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [usernameError, setUsernameError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const submit = async () => {
-    setError(null);
+    setUsernameError(null);
+    setFormError(null);
     const handle = username.trim().toLowerCase();
     if (!USERNAME_RE.test(handle)) {
-      setError('Username: 3–24 characters, lowercase letters, numbers, _ or . only.');
+      setUsernameError('3–24 characters: lowercase letters, numbers, _ or . only.');
       return;
     }
     setBusy(true);
     try {
+      const existing = await repo.getProfileByUsername(handle);
+      if (existing) {
+        setUsernameError('That username is taken — try another.');
+        return;
+      }
       await repo.signUp({
         email: email.trim(),
         password,
@@ -33,7 +41,7 @@ export default function SignUpScreen() {
       });
       router.replace('/(tabs)');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not create account.');
+      setFormError(e instanceof Error ? friendlyAuthError(e.message) : 'Could not create account.');
     } finally {
       setBusy(false);
     }
@@ -59,6 +67,7 @@ export default function SignUpScreen() {
               autoCapitalize="none"
               autoCorrect={false}
               placeholder="elliot.brews"
+              error={usernameError ?? undefined}
             />
             <TextField
               label="Display name (optional)"
@@ -81,8 +90,12 @@ export default function SignUpScreen() {
               onChangeText={setPassword}
               secureTextEntry
               placeholder="At least 8 characters"
-              error={error ?? undefined}
             />
+            {formError ? (
+              <AppText variant="caption" color={colors.accent} style={styles.formError}>
+                {formError}
+              </AppText>
+            ) : null}
             <Button title="Create account" onPress={submit} loading={busy} />
           </View>
 
@@ -114,6 +127,9 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: space(3),
+  },
+  formError: {
+    textAlign: 'center',
   },
   footer: {
     flexDirection: 'row',
