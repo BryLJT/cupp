@@ -644,7 +644,7 @@ export const demoRepo: Repo = {
     };
   },
 
-  async signIn(_email: string, _password: string): Promise<Session> {
+  async signIn(_identifier: string, _password: string): Promise<Session> {
     // Demo mode: any credentials sign you in as the demo user.
     const session: Session = {
       userId: elliotProfile.id,

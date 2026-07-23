@@ -3,6 +3,7 @@
 
 import { hasSupabaseEnv } from '@/lib/supabase';
 import { demoRepo } from './demoRepo';
+import { supabaseRepo } from './supabaseRepo';
 import type { Repo } from './repo';
 
 // Demo mode: no Supabase env vars configured, or explicitly forced via
@@ -13,13 +14,7 @@ const useDemo = !hasSupabaseEnv || process.env.EXPO_PUBLIC_DEMO === '1';
 let active: Repo = demoRepo;
 
 if (!useDemo) {
-  // TODO WP3: import and select supabaseRepo when env vars are present.
-  // supabaseRepo is delivered by WP3; until then, or if it fails to load,
-  // stay in demo. Do NOT statically import './supabaseRepo' here — it does
-  // not exist yet and would break compilation for everyone until WP3 lands.
-  //
-  //   import { supabaseRepo } from './supabaseRepo';
-  //   active = supabaseRepo;
+  active = supabaseRepo;
 }
 
 export const repo: Repo = active;

@@ -3,23 +3,24 @@ import { useState } from 'react';
 import { KeyboardAvoidingView, Platform, StyleSheet, View } from 'react-native';
 
 import { AppText, Button, Screen, TextField, colors, space } from '@/components';
+import { friendlyAuthError } from '@/lib/auth-errors';
 import { isDemoMode, repo } from '@/lib/data';
 
 export default function SignInScreen() {
   const router = useRouter();
-  const [email, setEmail] = useState('');
+  const [identifier, setIdentifier] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [formError, setFormError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
 
   const submit = async () => {
-    setError(null);
+    setFormError(null);
     setBusy(true);
     try {
-      await repo.signIn(email.trim(), password);
+      await repo.signIn(identifier.trim(), password);
       router.replace('/(tabs)');
     } catch (e) {
-      setError(e instanceof Error ? e.message : 'Could not sign in.');
+      setFormError(e instanceof Error ? friendlyAuthError(e.message) : 'Could not sign in.');
     } finally {
       setBusy(false);
     }
@@ -43,13 +44,12 @@ export default function SignInScreen() {
 
           <View style={styles.form}>
             <TextField
-              label="Email"
-              value={email}
-              onChangeText={setEmail}
+              label="Email or username"
+              value={identifier}
+              onChangeText={setIdentifier}
               autoCapitalize="none"
-              keyboardType="email-address"
-              autoComplete="email"
-              placeholder="you@example.com"
+              autoCorrect={false}
+              placeholder="you@example.com or elliot.brews"
             />
             <TextField
               label="Password"
@@ -58,13 +58,17 @@ export default function SignInScreen() {
               secureTextEntry
               autoComplete="password"
               placeholder="••••••••"
-              error={error ?? undefined}
             />
+            {formError ? (
+              <AppText variant="caption" color={colors.accent} style={styles.formError}>
+                {formError}
+              </AppText>
+            ) : null}
             <Button title="Sign in" onPress={submit} loading={busy} />
 
             {isDemoMode ? (
               <AppText variant="caption" style={styles.demoHint}>
-                Demo mode — any email and password signs you in.
+                Demo mode — any email/username and password signs you in.
               </AppText>
             ) : null}
           </View>
@@ -103,6 +107,9 @@ const styles = StyleSheet.create({
   },
   form: {
     gap: space(3),
+  },
+  formError: {
+    textAlign: 'center',
   },
   demoHint: {
     textAlign: 'center',
