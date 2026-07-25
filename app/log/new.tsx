@@ -1,4 +1,5 @@
 import { Ionicons } from '@expo/vector-icons';
+import * as ImagePicker from 'expo-image-picker';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useEffect, useMemo, useState } from 'react';
 import { Alert, Platform, StyleSheet, View } from 'react-native';
@@ -33,8 +34,8 @@ const BEAN_ROWS: { key: Exclude<BeanFieldKey, 'decaf'>; label: string; placehold
   { key: 'variety', label: 'Variety', placeholder: 'not on the label — add it?' },
   { key: 'roast_level', label: 'Roast level', placeholder: 'e.g. Light' },
   { key: 'roaster_tasting_notes', label: 'Roaster notes (comma-separated)', placeholder: 'e.g. blueberry, cocoa' },
-  { key: 'altitude', label: 'Altitude', placeholder: 'e.g. 1800 masl' },
-  { key: 'weight', label: 'Weight', placeholder: 'e.g. 250g' },
+  { key: 'altitude', label: 'Altitude (masl)', placeholder: 'e.g. 1800' },
+  { key: 'weight', label: 'Weight (g)', placeholder: 'e.g. 250' },
 ];
 
 function parseNum(value: string): number | null {
@@ -53,7 +54,8 @@ export default function LogFormScreen() {
   const params = useLocalSearchParams<{ prefill?: string; photoUri?: string }>();
 
   const [bean, setBean] = useState<BeanFields>(() => decodeFields(params.prefill));
-  const photoUri = typeof params.photoUri === 'string' ? params.photoUri : null;
+  const initialPhotoUri = typeof params.photoUri === 'string' ? params.photoUri : null;
+  const [photoUri, setPhotoUri] = useState<string | null>(initialPhotoUri);
 
   const [method, setMethod] = useState<string>('V60');
   const [customMethod, setCustomMethod] = useState('');
@@ -78,6 +80,35 @@ export default function LogFormScreen() {
   useEffect(() => {
     repo.listTemplates().then(setTemplates);
   }, []);
+
+  const takePhoto = async () => {
+    const perm = await ImagePicker.requestCameraPermissionsAsync();
+    if (!perm.granted) {
+      Alert.alert('Camera needed', 'Enable camera access in Settings to take a photo.');
+      return;
+    }
+    const result = await ImagePicker.launchCameraAsync({ mediaTypes: ['images'], quality: 1 });
+    if (!result.canceled && result.assets[0]) setPhotoUri(result.assets[0].uri);
+  };
+
+  const pickPhotoFromLibrary = async () => {
+    const perm = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    if (!perm.granted) {
+      Alert.alert('Library needed', 'Enable photo access in Settings to pick a photo.');
+      return;
+    }
+    const result = await ImagePicker.launchImageLibraryAsync({ mediaTypes: ['images'], quality: 1 });
+    if (!result.canceled && result.assets[0]) setPhotoUri(result.assets[0].uri);
+  };
+
+  const choosePhoto = () => {
+    Alert.alert('Bag photo', undefined, [
+      { text: 'Take photo', onPress: takePhoto },
+      { text: 'Choose from library', onPress: pickPhotoFromLibrary },
+      ...(photoUri ? [{ text: 'Remove photo', style: 'destructive' as const, onPress: () => setPhotoUri(null) }] : []),
+      { text: 'Cancel', style: 'cancel' as const },
+    ]);
+  };
 
   const methodOptions = useMemo(() => {
     const known = new Set(BASE_METHODS);
@@ -171,7 +202,17 @@ export default function LogFormScreen() {
         </PressableScale>
       </View>
 
-      {photoUri ? <Photo url={photoUri} height={160} style={styles.photo} /> : null}
+      <PressableScale
+        onPress={choosePhoto}
+        accessibilityRole="button"
+        accessibilityLabel={photoUri ? 'Change bag photo' : 'Add a bag photo'}
+        style={styles.photoTap}
+      >
+        <Photo url={photoUri} height={160} style={styles.photo} />
+        <View style={styles.photoBadge}>
+          <Ionicons name={photoUri ? 'camera' : 'add'} size={16} color={colors.onAccent} />
+        </View>
+      </PressableScale>
 
       {/* Bean */}
       <AppText variant="label" style={styles.sectionLabel}>
@@ -317,8 +358,22 @@ const styles = StyleSheet.create({
     paddingTop: space(2),
     paddingBottom: space(1),
   },
+  photoTap: {
+    position: 'relative',
+  },
   photo: {
     borderRadius: 10,
+  },
+  photoBadge: {
+    position: 'absolute',
+    right: space(2),
+    bottom: space(2),
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: colors.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionLabel: {
     marginTop: space(4),

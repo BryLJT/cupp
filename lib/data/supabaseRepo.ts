@@ -164,14 +164,19 @@ async function buildSession(userId: string): Promise<Session> {
 // logs
 // ---------------------------------------------------------------------------
 
-const AUTHOR_EMBED = 'profiles ( id, username, display_name, avatar_path )';
+// PostgREST can't infer a plain `profiles(...)` embed here: `likes` and
+// `comments` each hold FKs to both `logs` and `profiles`, so PostgREST also
+// sees an implicit many-to-many "logs<->profiles" path through them and
+// refuses to guess (PGRST201, HTTP 300). The `!fkey_name` hint pins it to
+// the direct one-to-many relationship.
+const authorEmbed = (fk: string) => `profiles!${fk} ( id, username, display_name, avatar_path )`;
 const LOG_SELECT = `
   id, user_id, visibility,
   roaster, coffee_name, origin_country, origin_region, process, variety, roast_level, altitude, roast_date,
   roaster_tasting_notes, weight, decaf, bean_basis, photo_path,
   method, dose_g, yield_g, grind, water_temp_c, brew_time_s,
   strength, acidity, sweetness, bitterness, overall, notes, created_at,
-  ${AUTHOR_EMBED},
+  ${authorEmbed('logs_user_id_fkey')},
   likes ( count ),
   comments ( count )
 `;
@@ -281,7 +286,7 @@ async function hydrateLogs(rows: LogRow[]): Promise<Log[]> {
 // comments
 // ---------------------------------------------------------------------------
 
-const COMMENT_SELECT = `id, log_id, body, created_at, ${AUTHOR_EMBED}`;
+const COMMENT_SELECT = `id, log_id, body, created_at, ${authorEmbed('comments_user_id_fkey')}`;
 
 type CommentRow = {
   id: string;
