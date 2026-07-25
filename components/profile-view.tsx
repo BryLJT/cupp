@@ -1,3 +1,4 @@
+import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { FlatList, StyleSheet, View } from 'react-native';
@@ -9,6 +10,7 @@ import { Avatar } from './avatar';
 import { Card } from './card';
 import { EmptyState } from './empty-state';
 import { Photo } from './photo';
+import { PressableScale } from './pressable-scale';
 import { beanTitle } from './log-card';
 
 export interface ProfileViewProps {
@@ -20,6 +22,8 @@ export interface ProfileViewProps {
   /** Header accessory in the top-right (e.g. a settings gear for self). */
   headerRight?: React.ReactNode;
   emptyMessage?: string;
+  /** When provided, the avatar becomes tappable (own profile only). */
+  onAvatarPress?: () => void;
 }
 
 function Stat({ value, label }: { value: number; label: string }) {
@@ -37,7 +41,7 @@ interface Cell {
 }
 
 /** Shared profile layout: identity, stats, an action slot, and a 3-up log grid. */
-export function ProfileView({ profile, stats, logs, action, headerRight, emptyMessage }: ProfileViewProps) {
+export function ProfileView({ profile, stats, logs, action, headerRight, emptyMessage, onAvatarPress }: ProfileViewProps) {
   const router = useRouter();
 
   const cells: Cell[] = logs.map((log) => ({ key: log.id, log }));
@@ -64,7 +68,21 @@ export function ProfileView({ profile, stats, logs, action, headerRight, emptyMe
           </View>
 
           <View style={styles.identity}>
-            <Avatar url={profile.avatarUrl} name={profile.displayName ?? profile.username} size={56} />
+            {onAvatarPress ? (
+              <PressableScale
+                onPress={onAvatarPress}
+                accessibilityRole="button"
+                accessibilityLabel="Change profile photo"
+                style={styles.avatarTap}
+              >
+                <Avatar url={profile.avatarUrl} name={profile.displayName ?? profile.username} size={56} />
+                <View style={styles.avatarBadge}>
+                  <Ionicons name="camera" size={12} color={colors.onAccent} />
+                </View>
+              </PressableScale>
+            ) : (
+              <Avatar url={profile.avatarUrl} name={profile.displayName ?? profile.username} size={56} />
+            )}
             <View style={styles.identityText}>
               {profile.displayName ? <AppText variant="heading">{profile.displayName}</AppText> : null}
               {profile.bio ? (
@@ -133,6 +151,22 @@ const styles = StyleSheet.create({
   identityText: {
     flex: 1,
     gap: space(1),
+  },
+  avatarTap: {
+    position: 'relative',
+  },
+  avatarBadge: {
+    position: 'absolute',
+    right: -2,
+    bottom: -2,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: colors.accent,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: colors.ground,
   },
   bio: {
     lineHeight: 18,
