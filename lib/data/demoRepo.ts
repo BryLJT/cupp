@@ -43,9 +43,20 @@ function byNewest(a: Log, b: Log): number {
   return b.createdAt.localeCompare(a.createdAt);
 }
 
+// Dedupes case-insensitively (e.g. "Colombia" and "colombia" collapse to one
+// chip), keeping whichever casing was seen first.
 function uniqueSorted(values: Array<string | null>): string[] {
-  const set = new Set(values.filter((v): v is string => Boolean(v)));
-  return Array.from(set).sort((a, b) => a.localeCompare(b));
+  const seen = new Map<string, string>();
+  for (const v of values) {
+    if (!v) continue;
+    const key = v.toLowerCase();
+    if (!seen.has(key)) seen.set(key, v);
+  }
+  return Array.from(seen.values()).sort((a, b) => a.localeCompare(b));
+}
+
+function sameCaseInsensitive(a: string | null, b: string | null): boolean {
+  return (a ?? '').toLowerCase() === (b ?? '').toLowerCase();
 }
 
 const NOT_VISIBLE: BeanFieldMeta = { basis: 'not_visible', sourceText: null };
@@ -911,9 +922,9 @@ export const demoRepo: Repo = {
           .map((v) => v.toLowerCase());
         return haystack.some((v) => v.includes(q));
       })
-      .filter((l) => (filters.origin ? l.originCountry === filters.origin : true))
-      .filter((l) => (filters.roaster ? l.roaster === filters.roaster : true))
-      .filter((l) => (filters.method ? l.method === filters.method : true))
+      .filter((l) => (filters.origin ? sameCaseInsensitive(l.originCountry, filters.origin) : true))
+      .filter((l) => (filters.roaster ? sameCaseInsensitive(l.roaster, filters.roaster) : true))
+      .filter((l) => (filters.method ? sameCaseInsensitive(l.method, filters.method) : true))
       .sort(byNewest);
   },
 

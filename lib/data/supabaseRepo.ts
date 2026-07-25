@@ -42,9 +42,16 @@ const SIGNED_URL_TTL_S = 60 * 60 * 24; // 24h — re-resolved on every fetch, so
 // small helpers
 // ---------------------------------------------------------------------------
 
+// Dedupes case-insensitively (e.g. "Colombia" and "colombia" collapse to one
+// chip), keeping whichever casing was seen first.
 function uniqueSorted(values: Array<string | null>): string[] {
-  const set = new Set(values.filter((v): v is string => Boolean(v)));
-  return Array.from(set).sort((a, b) => a.localeCompare(b));
+  const seen = new Map<string, string>();
+  for (const v of values) {
+    if (!v) continue;
+    const key = v.toLowerCase();
+    if (!seen.has(key)) seen.set(key, v);
+  }
+  return Array.from(seen.values()).sort((a, b) => a.localeCompare(b));
 }
 
 async function getCurrentUserId(): Promise<string | null> {
@@ -701,9 +708,11 @@ export const supabaseRepo: Repo = {
 
   async search(query: string, filters: DiscoveryFilters): Promise<Log[]> {
     let q = supabase.from('logs').select(LOG_SELECT).eq('visibility', 'public');
-    if (filters.origin) q = q.eq('origin_country', filters.origin);
-    if (filters.roaster) q = q.eq('roaster', filters.roaster);
-    if (filters.method) q = q.eq('method', filters.method);
+    // ilike (not eq) so a chip like "Colombia" also matches rows stored as
+    // "colombia" -- these are free-text fields with no casing guarantee.
+    if (filters.origin) q = q.ilike('origin_country', filters.origin);
+    if (filters.roaster) q = q.ilike('roaster', filters.roaster);
+    if (filters.method) q = q.ilike('method', filters.method);
     q = q.order('created_at', { ascending: false });
 
     const { data, error } = await q;

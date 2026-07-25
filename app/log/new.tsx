@@ -80,6 +80,7 @@ export default function LogFormScreen() {
   useEffect(() => {
     repo.listTemplates().then(setTemplates);
   }, []);
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string | null>(null);
 
   const takePhoto = async () => {
     const perm = await ImagePicker.requestCameraPermissionsAsync();
@@ -140,6 +141,7 @@ export default function LogFormScreen() {
     setGrind(t.grind ?? '');
     setTemp(t.waterTempC != null ? String(t.waterTempC) : '');
     setTime(t.brewTimeS != null ? String(t.brewTimeS) : '');
+    setSelectedTemplateId(t.id);
   };
 
   const resolvedMethod = method === CUSTOM ? customMethod.trim() : method;
@@ -160,6 +162,7 @@ export default function LogFormScreen() {
         brewTimeS: parseNum(time),
       });
       setTemplates((prev) => [...prev, t]);
+      setSelectedTemplateId(t.id);
     };
     if (Platform.OS === 'ios') {
       Alert.prompt('Save this setup', 'Name your template', (name) => {
@@ -255,7 +258,12 @@ export default function LogFormScreen() {
           </AppText>
           <View style={styles.chipWrap}>
             {templates.map((t) => (
-              <Chip key={t.id} label={`★ ${t.name}`} onPress={() => applyTemplate(t)} />
+              <Chip
+                key={t.id}
+                label={`★ ${t.name}`}
+                selected={selectedTemplateId === t.id}
+                onPress={() => applyTemplate(t)}
+              />
             ))}
             <Chip label="Save this setup ＋" onPress={saveTemplate} />
           </View>
