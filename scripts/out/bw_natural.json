@@ -1,0 +1,75 @@
+{
+  "photo": "bw_natural.jpg",
+  "object_path": "phone/1784735465-bw_natural.jpg",
+  "strategy": "grounding",
+  "latency_s": 11.8,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "coffee_name": {
+        "value": "The Natural Year Round",
+        "source_text": "The Natural Year Round",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "origin_region": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "process": {
+        "value": "natural",
+        "source_text": "naturally processed coffees",
+        "basis": "read"
+      },
+      "variety": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_level": {
+        "value": "Light",
+        "source_text": "Light",
+        "basis": "read"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": {
+        "value": [
+          "chocolate",
+          "berries",
+          "balanced"
+        ],
+        "source_text": "chocolate, berries, balanced",
+        "basis": "read"
+      },
+      "weight": {
+        "value": "12 oz / 340g",
+        "source_text": "12 oz / 340g",
+        "basis": "read"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}

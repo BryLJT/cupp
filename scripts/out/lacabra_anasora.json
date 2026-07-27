@@ -1,0 +1,74 @@
+{
+  "photo": "lacabra_anasora.jpg",
+  "object_path": "phone/1784735481-lacabra_anasora.jpg",
+  "strategy": "grounding",
+  "latency_s": 19.9,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "LA CABRA",
+        "source_text": "LA CABRA",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": "Ana Sora",
+        "source_text": "Ana Sora",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "origin_region": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "process": {
+        "value": "Natural",
+        "source_text": "NATURAL",
+        "basis": "read"
+      },
+      "variety": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_level": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": {
+        "value": [
+          "Floral",
+          "Ripe"
+        ],
+        "source_text": "FLORAL AND RIPE",
+        "basis": "read"
+      },
+      "weight": {
+        "value": "250G / 8.8OZ",
+        "source_text": "250G / 8.8OZ",
+        "basis": "read"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}

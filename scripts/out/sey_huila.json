@@ -1,0 +1,67 @@
+{
+  "photo": "sey_huila.jpg",
+  "object_path": "phone/1785120754-sey_huila.jpg",
+  "strategy": "grounding",
+  "latency_s": 11.0,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "SEY",
+        "source_text": "SEY",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "origin_country": {
+        "value": "Colombia",
+        "source_text": "Colombia",
+        "basis": "read"
+      },
+      "origin_region": {
+        "value": "Huila",
+        "source_text": "Huila",
+        "basis": "read"
+      },
+      "process": {
+        "value": "Washed",
+        "source_text": "WASHED",
+        "basis": "read"
+      },
+      "variety": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_level": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": [],
+      "weight": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "decaf": {
+        "value": true,
+        "source_text": "DECAFFEINATED",
+        "basis": "read"
+      }
+    }
+  }
+}

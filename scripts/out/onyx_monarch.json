@@ -1,0 +1,74 @@
+{
+  "photo": "onyx_monarch.jpg",
+  "object_path": "phone/1784735624-onyx_monarch.jpg",
+  "strategy": "grounding",
+  "latency_s": 15.1,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "Onyx Coffee",
+        "source_text": "ONYX COFFEE",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": "Monarch",
+        "source_text": "monarch",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "origin_region": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "process": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "variety": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_level": {
+        "value": "Dark",
+        "source_text": "DARK ROAST LEVEL",
+        "basis": "read"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": {
+        "value": [
+          "dried berries",
+          "dark chocolate"
+        ],
+        "source_text": "TASTES OF DRIED BERRIES AND DARK CHOCOLATE",
+        "basis": "read"
+      },
+      "weight": {
+        "value": "283g",
+        "source_text": "283g",
+        "basis": "read"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}

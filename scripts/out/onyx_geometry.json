@@ -1,0 +1,75 @@
+{
+  "photo": "onyx_geometry.jpg",
+  "object_path": "phone/1784735605-onyx_geometry.jpg",
+  "strategy": "grounding",
+  "latency_s": 14.8,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "ONYX COFFEE",
+        "source_text": "ONYX COFFEE",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": "geometry",
+        "source_text": "geometry",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "origin_region": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "process": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "variety": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_level": {
+        "value": "Light",
+        "source_text": "LIGHT ROAST LEVEL",
+        "basis": "read"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": {
+        "value": [
+          "delicate stone fruits",
+          "honey",
+          "tea"
+        ],
+        "source_text": "TASTES OF DELICATE STONE FRUITS, HONEY AND TEA",
+        "basis": "read"
+      },
+      "weight": {
+        "value": "203g",
+        "source_text": "203g",
+        "basis": "read"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}

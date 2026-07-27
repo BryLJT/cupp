@@ -1,0 +1,67 @@
+{
+  "photo": "onyx_worka.png",
+  "object_path": "phone/1784511557-onyx_worka.png",
+  "strategy": "grounding",
+  "latency_s": 12.3,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "ONYX",
+        "source_text": "ONYX",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "origin_country": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "origin_region": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "process": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "variety": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_level": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": [],
+      "weight": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}
