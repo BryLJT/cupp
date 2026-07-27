@@ -8,6 +8,13 @@ import { PressableScale } from './pressable-scale';
 
 type IoniconName = React.ComponentProps<typeof Ionicons>['name'];
 
+// Interactive dots must meet the 44pt platform minimum touch target, so each
+// pressable dot pads its icon out to 44x44. Display-only dots stay compact
+// for cards and detail rows.
+const TOUCH_TARGET = 44;
+const INTERACTIVE_ICON_SIZE = 20;
+const DISPLAY_ICON_SIZE = 14;
+
 export interface DotsRatingProps {
   /** Characteristic name, e.g. "Strength". Rendered to the left when provided. */
   label?: string;
@@ -15,13 +22,16 @@ export interface DotsRatingProps {
   value: number;
   onChange?: (value: number) => void;
   max?: number;
+  /** Icon size override. Defaults to 20 when interactive, 14 for display. */
   size?: number;
   style?: StyleProp<ViewStyle>;
 }
 
 /** One cupping characteristic on a 1-5 filled-dot scale. */
-export function DotsRating({ label, value, onChange, max = 5, size = 14, style }: DotsRatingProps) {
+export function DotsRating({ label, value, onChange, max = 5, size, style }: DotsRatingProps) {
   const isInteractive = typeof onChange === 'function';
+  const iconSize = size ?? (isInteractive ? INTERACTIVE_ICON_SIZE : DISPLAY_ICON_SIZE);
+  const touchPadding = Math.max(0, (TOUCH_TARGET - iconSize) / 2);
   const indices = Array.from({ length: max }, (_, i) => i);
   const accessibilityLabel = label ? `${label} rating, ${value} of ${max}` : `Rating, ${value} of ${max}`;
 
@@ -49,17 +59,16 @@ export function DotsRating({ label, value, onChange, max = 5, size = 14, style }
                 onPress={() => onChange?.(n)}
                 accessibilityRole="button"
                 accessibilityLabel={`Set ${label ?? 'rating'} to ${n}`}
-                hitSlop={6}
-                style={styles.dot}
+                style={{ padding: touchPadding }}
               >
-                <Ionicons name={icon} size={size} color={filled ? colors.accent : colors.line} />
+                <Ionicons name={icon} size={iconSize} color={filled ? colors.accent : colors.line} />
               </PressableScale>
             );
           }
 
           return (
-            <View key={index} style={styles.dot}>
-              <Ionicons name={icon} size={size} color={filled ? colors.accent : colors.line} />
+            <View key={index} style={styles.displayDot}>
+              <Ionicons name={icon} size={iconSize} color={filled ? colors.accent : colors.line} />
             </View>
           );
         })}
@@ -80,7 +89,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
   },
-  dot: {
+  displayDot: {
     marginLeft: 4,
   },
 });
