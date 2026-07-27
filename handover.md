@@ -39,7 +39,7 @@ A Python spike on 14 Jul validated the vision model on two real coffee bags:
 - **Sey Huila Decaf (legible label):** correctly extracted roaster SEY, coffee Huila, Colombia/Huila origin, process Washed (from the printed "FIELD BLEND - WASHED"), decaf true (from "DECAFFEINATED"); correctly nulled variety/altitude/notes/weight that weren't printed. The cited `source_text` for each field was real text from the bag.
 - **Onyx Worka (honesty stress test — olive bag showing ONLY a skull logo):** returned roaster "Onyx" and marked everything else `not_visible`/null. It did NOT hallucinate the coffee's true Ethiopia/washed/heirloom identity that it had no way to see. This is the grounding guardrail working, and it's demo gold.
 - JSON mode (`response_format: json_object`) is honored; valid JSON both runs.
-- **Known weakness: latency.** 13.5s on a 43KB image, 21.8s on a 2.1MB image. Phase A Block 4 measures whether client-side downsizing fixes this. **[updated after Block 4: resize spec goes here]**
+- **Known weakness: latency.** 13.5s on a 43KB image, 21.8s on a 2.1MB image. **[updated after Block 4]** The 27 Jul resize matrix (orig/1600px/1024px × 3 bags, `scripts/out/block4-*.csv`) showed latency is MODEL-bound noise, not size-bound — the same 75KB file scored 11.2s and 29.1s on different runs. Client resize therefore buys bandwidth, not speed: **spec = 1280px longest edge, JPEG 0.7 (as implemented in `lib/scan.ts`)** — extraction quality held with zero degradation down to 1024px. Design the UI for a 10–30s scan; the staged progress screen is the mitigation.
 
 The spike script is preserved verbatim at `scripts/scan_spike.py`. Treat it as the validated reference for the prompt, contract, and guardrails — read it, import from it, don't rewrite it.
 
@@ -174,6 +174,6 @@ Real values are shared person-to-person (Bryan pastes them into the group's priv
 - ✅ 2026-07-14 — Agnes validated on real bags (grounding held, JSON honored)
 - ✅ 2026-07-16 — Repo scaffolded (Expo SDK 54, TypeScript, expo-router — SDK 54 pinned to match App Store Expo Go, see §12.1), spike rescued into `scripts/`, this document written
 - ✅ 2026-07-17 — Block 2: hosted Supabase project live (ref `fmtcobzgghhiexcrucqb`, Singapore region, free tier) + private `bag-scans` bucket (recorded in `supabase/migrations/0001_init_storage.sql`) + `lib/supabase.ts` client stub. **Note: project uses NEW-style API keys (`sb_publishable_...` / `sb_secret_...`); legacy JWT keys are DISABLED** — the env vars keep the conventional names (ANON/SERVICE_ROLE) but hold new-format keys.
-- ⬜ Block 3 — `upload_and_scan.py` + Bryan's real phone photos through the full pipeline **[results summary goes here]**
-- ⬜ Block 4 — latency/resize matrix **[client resize spec goes here]**
+- ✅ 2026-07-22/27 — Block 3: `upload_and_scan.py` proved the full pipeline (upload → signed URL → Agnes) — GO on 6 bags, 5–6 fields on legible labels, zero hallucinations; found + handled the Agnes empty-200 flake (~1/3 of first calls, retry ≤3). 27 Jul: `scan-bag` Edge Function deployed to the team Supabase project and **verified live on a real phone** (camera → upload → function → prefilled form). Caveat: 4 of 6 test bags were clean web product shots, not phone photos.
+- ✅ 2026-07-27 — Block 4: resize matrix done — **client spec: 1280px longest edge, JPEG quality 0.7** (quality holds to 1024px; latency is model-bound noise, so resize saves bandwidth, not time). Results: `scripts/out/block4-*.csv`.
 - ⬜ 21 Jul — team kickoff: environment setup all three machines, lane split

@@ -68,7 +68,10 @@ function mockResultFor(fixture: MockFixture): ScanResult {
 
 // ---------------------------------------------------------------------------
 // preprocess (both impls): downsize + JPEG. Handles HEIC and is the provisional
-// latency fix. TODO Block 4: final resize spec (longest edge / quality matrix).
+// latency fix. Block 4 matrix (27 Jul, orig/1600/1024 x 3 bags) settled this:
+// extraction quality holds at 1024px (5-6 fields, no degradation), latency is
+// model-bound noise (same bytes: 11-29s spread), so resizing buys bandwidth,
+// not speed. 1280/0.7 stays — comfortably above the tested-good 1024 floor.
 // ---------------------------------------------------------------------------
 
 async function preprocess(localUri: string): Promise<string> {
