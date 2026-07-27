@@ -1,15 +1,16 @@
 // The bag-scan pipeline. Interface is stable; the implementation is a MOCK by
 // default (staged delays + the validated SEY Huila extraction) so the scan flow
-// is fully demoable with no backend. A real path (behind EXPO_PUBLIC_SCAN_LIVE=1)
-// uploads to storage and invokes the 'scan-bag' Edge Function — but that Edge
-// Function is Block 3 scope and is NOT built here; this only defines the call.
+// is fully demoable with no backend. The real path (behind EXPO_PUBLIC_SCAN_LIVE=1)
+// uploads to storage and invokes the 'scan-bag' Edge Function
+// (supabase/functions/scan-bag/index.ts).
 //
 // Reference for the contract + grounding guardrail: scripts/scan_spike.py.
 
 import * as ImageManipulator from 'expo-image-manipulator';
 
-import { BEAN_FIELD_KEYS } from './data';
+import { BEAN_FIELD_KEYS, repo } from './data';
 import type { BeanField, BeanFieldKey, BeanFields, ScanResult, ScanStage } from './data';
+import { supabase } from './supabase';
 
 const SCAN_LIVE = process.env.EXPO_PUBLIC_SCAN_LIVE === '1';
 
@@ -121,16 +122,31 @@ async function scanMock(onStage: (stage: ScanStage) => void, fixture: MockFixtur
   return mockResultFor(fixture);
 }
 
-async function scanLive(_processedUri: string, onStage: (stage: ScanStage) => void): Promise<ScanResult> {
-  // Real path — deferred to Block 3 (Edge Function). Wiring only:
-  //   const path = await repo.uploadPhoto(processedUri);
-  //   onStage('reading');
-  //   const { data } = await supabase.functions.invoke('scan-bag', { body: { path } });
-  //   onStage('building');
-  //   return parseContract(data);
-  // Until the Edge Function exists, fail loudly so we never ship a fake "live".
+async function scanLive(processedUri: string, onStage: (stage: ScanStage) => void): Promise<ScanResult> {
+  if (!supabase) throw new Error('Live scan needs Supabase env vars.');
+
+  const path = await repo.uploadPhoto(processedUri);
   onStage('reading');
-  throw new Error('Live scan not available yet (Edge Function is Block 3). Use manual entry.');
+  const { data, error } = await supabase.functions.invoke('scan-bag', { body: { path } });
+  if (error) throw new Error('Scan failed. Try again or type it in manually.');
+  onStage('building');
+
+  // Trust but verify: merge the server response onto a blank BeanFields so a
+  // malformed payload can never crash the form — unknown keys are dropped,
+  // missing keys stay not_visible.
+  const fields = emptyBeanFields();
+  const incoming = (data?.fields ?? {}) as Record<string, Partial<BeanField>>;
+  for (const key of BEAN_FIELD_KEYS) {
+    const cell = incoming[key];
+    if (cell && typeof cell === 'object') {
+      fields[key] = {
+        value: typeof cell.value === 'string' ? cell.value : null,
+        sourceText: typeof cell.sourceText === 'string' ? cell.sourceText : null,
+        basis: cell.basis === 'read' || cell.basis === 'inferred' ? cell.basis : 'not_visible',
+      };
+    }
+  }
+  return { isCoffeeBag: data?.isCoffeeBag === true, fields };
 }
 
 /** True bean fields → a fresh BeanFields, for seeding the blank manual form. */
