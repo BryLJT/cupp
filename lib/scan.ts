@@ -8,11 +8,14 @@
 
 import * as ImageManipulator from 'expo-image-manipulator';
 
-import { BEAN_FIELD_KEYS, repo } from './data';
+import { BEAN_FIELD_KEYS, isDemoMode, repo } from './data';
 import type { BeanField, BeanFieldKey, BeanFields, ScanResult, ScanStage } from './data';
 import { supabase } from './supabase';
 
-const SCAN_LIVE = process.env.EXPO_PUBLIC_SCAN_LIVE === '1';
+// Live scan requires BOTH the flag and a real backend session. In demo mode
+// uploadPhoto returns a fake path and there is no auth session, so invoking
+// the real Edge Function can only ever 401 — demo always uses the mock.
+const SCAN_LIVE = process.env.EXPO_PUBLIC_SCAN_LIVE === '1' && !isDemoMode;
 
 // ---------------------------------------------------------------------------
 // bean-field helpers
