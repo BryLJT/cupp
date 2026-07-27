@@ -200,7 +200,7 @@ export default function LogDetailScreen() {
             value={draft}
             onChangeText={setDraft}
             placeholder="Add a comment…"
-            placeholderTextColor={colors.taupe}
+            placeholderTextColor={colors.placeholder}
             style={styles.commentInput}
             accessibilityLabel="Add a comment"
             returnKeyType="send"

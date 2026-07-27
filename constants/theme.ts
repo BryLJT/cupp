@@ -3,6 +3,7 @@ export const colors = {
   surface: '#FBF8F2', // cards, sheets, inputs
   ink: '#2E2119', // primary text
   taupe: '#6E6052', // secondary text
+  placeholder: '#B3A490', // input placeholder/example text — must read as EMPTY, never as content (taupe = real text)
   accent: '#8A5A33', // primary buttons, scan shutter, read chips, rating marks
   onAccent: '#FBF8F2', // text/icons on accent
   line: '#D8CCBB', // borders, dividers

@@ -18,6 +18,8 @@ export interface ButtonProps {
   style?: StyleProp<ViewStyle>;
   /** Optional leading icon, rendered before the label. */
   icon?: React.ReactNode;
+  /** Override the label color, e.g. ghost buttons on dark backdrops. */
+  textColor?: string;
 }
 
 /** Primary action control. One accent (primary) per screen is a caller concern. */
@@ -31,9 +33,11 @@ export function Button({
   accessibilityLabel,
   style,
   icon,
+  textColor: textColorOverride,
 }: ButtonProps) {
   const isDisabled = disabled || loading;
-  const textColor = variant === 'primary' ? colors.onAccent : variant === 'danger' ? colors.accent : colors.ink;
+  const textColor =
+    textColorOverride ?? (variant === 'primary' ? colors.onAccent : variant === 'danger' ? colors.accent : colors.ink);
   const indicatorColor = variant === 'primary' ? colors.onAccent : colors.accent;
 
   return (

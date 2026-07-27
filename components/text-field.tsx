@@ -20,7 +20,7 @@ export function TextField({ label, error, containerStyle, style, ...rest }: Text
       <TextInput
         {...rest}
         accessibilityLabel={label}
-        placeholderTextColor={colors.taupe}
+        placeholderTextColor={colors.placeholder}
         style={[styles.input, style]}
       />
       {error ? (

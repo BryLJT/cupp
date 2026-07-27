@@ -90,7 +90,7 @@ export default function SearchScreen() {
             value={query}
             onChangeText={setQuery}
             placeholder="Search beans, roasters, people…"
-            placeholderTextColor={colors.taupe}
+            placeholderTextColor={colors.placeholder}
             style={styles.searchInput}
             autoCapitalize="none"
             autoCorrect={false}

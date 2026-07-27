@@ -120,6 +120,7 @@ export default function ScanProgressScreen() {
         <Button
           title={error ? 'Continue to manual entry' : 'Cancel — type it in instead'}
           variant="ghost"
+          textColor={GUIDE_LIGHT}
           onPress={toManual}
           style={styles.cancel}
         />
