@@ -16,6 +16,7 @@
 //   (decaf → 'Decaf' | 'Caffeinated' | null; tasting notes → comma-joined)
 
 import { createClient } from 'jsr:@supabase/supabase-js@2';
+import { encodeBase64 } from 'jsr:@std/encoding@1/base64';
 
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
@@ -23,7 +24,6 @@ const corsHeaders = {
 };
 
 const BUCKET = 'bag-scans';
-const SIGNED_URL_TTL_S = 600;
 const MODEL_ATTEMPTS = 3;
 
 const FIELDS = [
@@ -204,14 +204,18 @@ Deno.serve(async (req: Request) => {
       return json({ error: 'Invalid path' }, 403);
     }
 
-    const { data: signed, error: signError } = await admin.storage
-      .from(BUCKET)
-      .createSignedUrl(path, SIGNED_URL_TTL_S);
-    if (signError || !signed?.signedUrl) {
+    // Embed the image in the request instead of handing the provider a signed
+    // URL to fetch: the function sits next to the storage (same region), while
+    // the provider fetching a Singapore URL cross-region cost ~2s per scan in
+    // the 27 Jul A/B (median 8.0s URL vs 6.2s embedded).
+    const { data: file, error: downloadError } = await admin.storage.from(BUCKET).download(path);
+    if (downloadError || !file) {
       return json({ error: 'Photo not found' }, 404);
     }
+    const mime = path.toLowerCase().endsWith('.png') ? 'image/png' : 'image/jpeg';
+    const dataUrl = `data:${mime};base64,${encodeBase64(await file.arrayBuffer())}`;
 
-    const parsed = await callModel(signed.signedUrl);
+    const parsed = await callModel(dataUrl);
     if (!parsed) {
       return json({ error: 'The scanner could not read this photo. Try again or type it in manually.' }, 502);
     }
