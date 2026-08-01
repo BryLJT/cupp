@@ -197,7 +197,7 @@ export default function LogFormScreen() {
   };
 
   return (
-    <Screen scroll edges={['top', 'bottom']} contentContainerStyle={styles.content}>
+    <Screen scroll keyboard edges={['top', 'bottom']} contentContainerStyle={styles.content}>
       <View style={styles.titleRow}>
         <AppText variant="title">New log</AppText>
         <PressableScale onPress={() => router.back()} accessibilityRole="button" accessibilityLabel="Close" hitSlop={8}>

@@ -10,6 +10,11 @@ export interface ScreenProps {
   children?: React.ReactNode;
   /** Wraps children in a ScrollView when true. Defaults to false. */
   scroll?: boolean;
+  /**
+   * Makes the ScrollView give way to the keyboard (iOS) so focused inputs near
+   * the bottom aren't covered. Opt-in per screen; only meaningful with scroll.
+   */
+  keyboard?: boolean;
   /** Applies horizontal padding of space(4). Defaults to true. */
   padded?: boolean;
   style?: StyleProp<ViewStyle>;
@@ -24,6 +29,7 @@ export interface ScreenProps {
 export function Screen({
   children,
   scroll = false,
+  keyboard = false,
   padded = true,
   style,
   contentContainerStyle,
@@ -45,6 +51,7 @@ export function Screen({
       <View style={[styles.root, insetStyle, style]}>
         <ScrollView
           keyboardShouldPersistTaps="handled"
+          automaticallyAdjustKeyboardInsets={keyboard}
           contentContainerStyle={[paddedStyle, contentContainerStyle]}
         >
           {children}

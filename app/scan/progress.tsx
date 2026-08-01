@@ -46,8 +46,10 @@ export default function ScanProgressScreen() {
           router.replace({ pathname: '/log/new', params: { photoUri } });
           return;
         }
+        // Coffee Preview first (Vivino flow): show what the community says
+        // before asking the user to log. Walking away is a legitimate ending.
         router.replace({
-          pathname: '/log/new',
+          pathname: '/scan/result',
           params: { photoUri, prefill: encodeFields(result.fields) },
         });
       } catch (e) {
