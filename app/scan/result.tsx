@@ -84,6 +84,9 @@ export default function ScanResultScreen() {
   const [loading, setLoading] = useState(true);
   const [matches, setMatches] = useState<Log[]>([]);
   const [moreFromRoaster, setMoreFromRoaster] = useState<Log[]>([]);
+  // Measured height of the floating CTA bar, so the list can pad past it
+  // exactly instead of guessing (a fixed guess cut off the last rows).
+  const [ctaHeight, setCtaHeight] = useState(0);
 
   useEffect(() => {
     let alive = true;
@@ -276,7 +279,7 @@ export default function ScanResultScreen() {
       <FlatList
         data={loading ? [] : matches}
         keyExtractor={(item) => item.id}
-        contentContainerStyle={[styles.list, { paddingBottom: space(30) }]}
+        contentContainerStyle={[styles.list, { paddingBottom: ctaHeight + space(6) }]}
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={header}
         ListFooterComponent={footer}
@@ -292,7 +295,10 @@ export default function ScanResultScreen() {
         }
       />
 
-      <View style={[styles.ctaBar, { paddingBottom: insets.bottom + space(3) }]}>
+      <View
+        style={[styles.ctaBar, { paddingBottom: insets.bottom + space(3) }]}
+        onLayout={(e) => setCtaHeight(e.nativeEvent.layout.height)}
+      >
         <Button title="Log this coffee" onPress={toLogForm} />
         <Button title="Done for now" variant="ghost" onPress={() => router.back()} />
       </View>
