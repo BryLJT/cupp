@@ -1,0 +1,75 @@
+{
+  "photo": "alchemist_amederaro_konga.jpg",
+  "object_path": "phone/1785603941-alchemist_amederaro_konga.jpg",
+  "strategy": "grounding",
+  "latency_s": 8.1,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "ALCHEMIST",
+        "source_text": "ALCHEMIST",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": "AMEDERARO KONGA AN",
+        "source_text": "AMEDERARO KONGA AN",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": "Ethiopia",
+        "source_text": "Yirgacheffe, Ethiopia",
+        "basis": "read"
+      },
+      "origin_region": {
+        "value": "Yirgacheffe",
+        "source_text": "Yirgacheffe, Ethiopia",
+        "basis": "read"
+      },
+      "process": {
+        "value": "Anaerobic Natural",
+        "source_text": "Anaerobic Natural",
+        "basis": "read"
+      },
+      "variety": {
+        "value": "JARC 74 Selechtions",
+        "source_text": "JARC 74 Selechtions",
+        "basis": "read"
+      },
+      "roast_level": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": {
+        "value": [
+          "Blackberry Blossom",
+          "Concord Grape",
+          "Lavender"
+        ],
+        "source_text": "Blackberry Blossom, Concord Grape, Lavender",
+        "basis": "read"
+      },
+      "weight": {
+        "value": "150g",
+        "source_text": "150g / $26",
+        "basis": "read"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}

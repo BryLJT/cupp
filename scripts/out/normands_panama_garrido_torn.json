@@ -1,0 +1,71 @@
+{
+  "photo": "normands_panama_garrido_torn.jpg",
+  "object_path": "phone/1785603968-normands_panama_garrido_torn.jpg",
+  "strategy": "grounding",
+  "latency_s": 7.8,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "LES TORR\u00c9FACTEURS NORMANDS",
+        "source_text": "LES TORR\u00c9FACTEURS NORMANDS",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": "Panama Boquette Garrido",
+        "source_text": "Panama Boquette Garrido",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": "Panama",
+        "source_text": "Panama Boquette Garrido",
+        "basis": "inferred"
+      },
+      "origin_region": {
+        "value": "Boquette Garrido",
+        "source_text": "Panama Boquette Garrido",
+        "basis": "inferred"
+      },
+      "process": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "variety": {
+        "value": "100% Arabica",
+        "source_text": "100% Arabica",
+        "basis": "read"
+      },
+      "roast_level": {
+        "value": "6",
+        "source_text": "Intensit\u00e9 6",
+        "basis": "read"
+      },
+      "altitude": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "weight": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}

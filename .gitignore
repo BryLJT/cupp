@@ -55,11 +55,12 @@ __pycache__/
 *.pyc
 scripts/.venv/
 
-# harness output + Bryan's private phone photos
+# harness output (phone photos un-ignored 3 Aug per Bryan — evidence reproducibility)
 out/*
 !out/.gitkeep
-scripts/fixtures/phone/*
-!scripts/fixtures/phone/.gitkeep
 
 # build artifacts
 dist-web/
+
+# supabase CLI scratch
+supabase/.temp/

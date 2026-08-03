@@ -1,0 +1,74 @@
+{
+  "photo": "couleur_rwanda_baho.jpg",
+  "object_path": "phone/1785603955-couleur_rwanda_baho.jpg",
+  "strategy": "grounding",
+  "latency_s": 7.0,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "COULEUR CAFE",
+        "source_text": "COULEUR CAFE",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": "BAHO LAVE",
+        "source_text": "BAHO LAVE",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": "RWANDA",
+        "source_text": "RWANDA",
+        "basis": "read"
+      },
+      "origin_region": {
+        "value": "NYARUGURU",
+        "source_text": "NYARUGURU",
+        "basis": "read"
+      },
+      "process": {
+        "value": "NATURE",
+        "source_text": "PROCESS : NATURE",
+        "basis": "read"
+      },
+      "variety": {
+        "value": "BOURBON ROUGE",
+        "source_text": "VARI\u00c9T\u00c9 : BOURBON ROUGE",
+        "basis": "read"
+      },
+      "roast_level": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "altitude": {
+        "value": "1800-2100 m",
+        "source_text": "ALTITUDE : 1800-2100 m",
+        "basis": "read"
+      },
+      "roast_date": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "roaster_tasting_notes": {
+        "value": [
+          "peche jaune",
+          "th\u00e9 noir"
+        ],
+        "source_text": "NOTES AR\u00d4MATIQUES : PECHE JAUNE, TH\u00c9 NOIR",
+        "basis": "read"
+      },
+      "weight": {
+        "value": null,
+        "source_text": null,
+        "basis": "not_visible"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}

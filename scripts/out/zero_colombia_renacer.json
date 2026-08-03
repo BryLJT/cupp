@@ -1,0 +1,77 @@
+{
+  "photo": "zero_colombia_renacer.jpg",
+  "object_path": "phone/1785603981-zero_colombia_renacer.jpg",
+  "strategy": "grounding",
+  "latency_s": 7.8,
+  "result": {
+    "is_coffee_bag": true,
+    "fields": {
+      "roaster": {
+        "value": "zero",
+        "source_text": "zero",
+        "basis": "read"
+      },
+      "coffee_name": {
+        "value": "Colombia El Renacer",
+        "source_text": "Colombia El Renacer",
+        "basis": "read"
+      },
+      "origin_country": {
+        "value": "Colombia",
+        "source_text": "Colombia, Caldas",
+        "basis": "read"
+      },
+      "origin_region": {
+        "value": "Caldas",
+        "source_text": "Colombia, Caldas",
+        "basis": "read"
+      },
+      "process": {
+        "value": "Watermelon Co-Ferment Washed",
+        "source_text": "Watermelon Co-Ferment Washed",
+        "basis": "read"
+      },
+      "variety": {
+        "value": "Typica Mejorado",
+        "source_text": "Typica Mejorado",
+        "basis": "read"
+      },
+      "roast_level": {
+        "value": "Light roast",
+        "source_text": "Filter - Light roast",
+        "basis": "read"
+      },
+      "altitude": {
+        "value": "1700 MASL",
+        "source_text": "1700 MASL",
+        "basis": "read"
+      },
+      "roast_date": {
+        "value": "22 JUL 2026",
+        "source_text": "22 JUL 2026",
+        "basis": "read"
+      },
+      "roaster_tasting_notes": {
+        "value": [
+          "Rock Melon",
+          "Watermelon",
+          "Apricot",
+          "Caramel",
+          "Black Tea"
+        ],
+        "source_text": "Rock Melon, Watermelon, Apricot, Caramel, Black Tea",
+        "basis": "read"
+      },
+      "weight": {
+        "value": "200g",
+        "source_text": "200g",
+        "basis": "read"
+      },
+      "decaf": {
+        "value": false,
+        "source_text": null,
+        "basis": "not_visible"
+      }
+    }
+  }
+}
